@@ -9,26 +9,77 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-gray-50 text-gray-800">
-  <header class="bg-white shadow">
-    <div class="container mx-auto px-4 py-3 d-flex align-items-center justify-content-between">
-      <a href="index.html" class="d-flex align-items-center gap-2"><img src="images/logo.jpg" alt="Couturo Business" class="h-12"><span class="brand-title ms-2">Couturo Business</span></a>
-      <div>
-        <a href="panier.html" class="btn btn-outline-secondary btn-sm position-relative">Panier <span id="cart-count" class="badge bg-danger ms-2">0</span></a>
+  <header class="site-header">
+    <div class="topbar">
+      <div class="container">
+        <div>Livraison offerte dès 100000 CDF</div>
+        <div class="topbar-links">
+          <a href="contact.html">Support</a>
+          <a href="https://wa.me/243977000858">WhatsApp</a>
+        </div>
       </div>
     </div>
+    <div class="header-main">
+      <div class="container">
+        <div class="brand-wrap">
+          <a href="index.html" class="brand-wrap">
+            <img src="images/logo.jpg" alt="Couturo Business">
+            <span class="brand-title">Couturo Business</span>
+          </a>
+        </div>
+        <div class="header-search">
+          <input id="search-input" type="search" placeholder="Rechercher un produit...">
+          <span class="search-icon">⌕</span>
+          <div id="search-results" class="absolute right-0 mt-1 w-80 bg-white shadow z-50"></div>
+        </div>
+        <div class="header-actions">
+          <a href="panier.html" class="cart-pill"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7M17 13l1.5 7M9 20h6" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="cart-count">0</span></a>
+          <a href="contact.html" class="header-cta">Contact</a>
+        </div>
+      </div>
+    </div>
+    <nav class="main-nav">
+      <div class="container">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="boutique.html?cat=homme">Homme</a></li>
+          <li><a href="boutique.html?cat=femme">Femme</a></li>
+          <li><a href="boutique.html?cat=accessoires">Accessoires</a></li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
-  <main class="container mx-auto px-4 py-8">
+  <main class="container product-detail-wrap">
     <div id="product-detail"></div>
   </main>
 
-  <footer class="bg-white mt-12 py-6 border-top">
-    <div class="container mx-auto px-4 text-sm text-gray-600">
-      <div class="row">
-        <div class="col-md-6">© Couturo</div>
-        <div class="col-md-6 text-md-end"><a href="contact.html">Contact</a> • <a href="#">Mentions légales</a></div>
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo.jpg" alt="Couturo Business">
+          <div><h4>Couturo Business</h4></div>
+        </div>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@couturo.com">contact@couturo.com</a></li>
+          <li><a href="https://wa.me/243977000858">+243 977 000 858</a></li>
+        </ul>
       </div>
     </div>
+    <div class="container footer-bottom">© 2026 Couturo Business</div>
   </footer>
 
   <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index:10800"></div>
