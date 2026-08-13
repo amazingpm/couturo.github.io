@@ -12,7 +12,11 @@ const Cart = (function(){
     if(existing){ existing.qty += qty; }
     else cart.push({id:item.id,name:item.name,price:item.price,qty, image: item.images && item.images[0]});
     write(cart); renderCartCount();
-    // show add-to-cart notification (Bootstrap toast)
+    try{
+      showCartDialog(item);
+    }catch(e){
+      console.log('cart dialog error', e);
+    }
     try{ showToast(`${item.name} a été ajouté au panier.`); }catch(e){ /* ignore */ }
   }
   function update(id, qty){
@@ -60,6 +64,56 @@ function showToast(message){
     // remove from DOM after hidden
     toastEl.addEventListener('hidden.bs.toast', ()=>{ toastEl.remove(); });
   }catch(e){ /* fallback to alert */ console.log('toast error', e); }
+}
+
+function showCartDialog(item){
+  let modal = document.getElementById('cart-confirm-modal');
+  if(!modal){
+    modal = document.createElement('div');
+    modal.id = 'cart-confirm-modal';
+    modal.className = 'cart-modal-backdrop';
+    modal.setAttribute('aria-hidden', 'false');
+    modal.innerHTML = `
+      <div class="cart-modal" role="dialog" aria-modal="true" aria-labelledby="cart-modal-title">
+        <button class="cart-modal-close" type="button" aria-label="Fermer">×</button>
+        <div class="cart-modal-icon">✓</div>
+        <h3 id="cart-modal-title">Produit ajouté</h3>
+        <p id="cart-modal-message">Votre article a bien été ajouté au panier.</p>
+        <div class="cart-modal-actions">
+          <button type="button" class="cart-modal-secondary">Continuer vos achats</button>
+          <button type="button" class="cart-modal-primary">Voir le panier</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    modal.querySelector('.cart-modal-close').addEventListener('click', () => closeCartDialog());
+    modal.querySelector('.cart-modal-secondary').addEventListener('click', () => closeCartDialog());
+    modal.querySelector('.cart-modal-primary').addEventListener('click', () => {
+      closeCartDialog();
+      window.location.href = 'panier.html';
+    });
+    modal.addEventListener('click', (event) => {
+      if(event.target === modal) closeCartDialog();
+    });
+  }
+
+  const message = document.getElementById('cart-modal-message');
+  if(message && item){
+    message.textContent = `${item.name} a bien été ajouté au panier.`;
+  }
+
+  document.body.classList.add('modal-open');
+  modal.classList.add('is-visible');
+  setTimeout(() => modal.classList.add('is-animated'), 20);
+}
+
+function closeCartDialog(){
+  const modal = document.getElementById('cart-confirm-modal');
+  if(!modal) return;
+  modal.classList.remove('is-animated');
+  modal.classList.remove('is-visible');
+  document.body.classList.remove('modal-open');
 }
 
 // Format numbers as Francs Congolais (CDF) abbreviated
