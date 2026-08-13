@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Produit - Couturo Business</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2"><img src="images/logo.jpg" alt="Couturo Business" class="h-12"></a>
+      <a href="panier.html" class="relative">Panier <span id="cart-count" class="ml-1 bg-red-600 text-white rounded-full text-xs px-2">0</span></a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <div id="product-detail"></div>
+  </main>
+
+  <footer class="bg-white mt-12 py-6"><div class="container mx-auto px-4 text-sm text-gray-600">© Couturo</div></footer>
+
+  <script src="js/cart.js"></script>
+  <script src="data/products.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

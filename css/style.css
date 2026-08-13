@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap');
+
+:root{
+	--primary:#0f172a; /* deep indigo/gray */
+	--accent:#ef4444; /* red accent */
+	--brand:#111827;
+}
+
+/* Base fonts */
+body{ font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; color:var(--brand); }
+.brand-title{ font-family: 'Playfair Display', serif; font-weight:700; font-size:1.25rem; color:var(--primary); }
+.container{ max-width:1200px; }
+
+/* Header styling */
+header{ background:white; }
+header .container{ display:flex; align-items:center; justify-content:space-between; }
+
+/* Carousel */
+.banner-slide{ position:relative; opacity:0; transition:opacity 1s ease; }
+.banner-slide.active{ opacity:1; }
+
+/* Buttons */
+.btn-primary{ background:var(--primary); color:white; padding:.5rem 1rem; border-radius:.375rem; }
+.btn-ghost{ background:transparent; border:1px solid #e5e7eb; padding:.4rem .8rem; border-radius:.375rem; }
+
+/* Product card hover */
+.product-card{ transition:transform .18s ease, box-shadow .18s ease; }
+.product-card:hover{ transform:translateY(-6px); box-shadow:0 8px 20px rgba(2,6,23,0.08); }
+
+/* Utilities */
+.placeholder{ background:#f3f4f6; display:flex; align-items:center; justify-content:center; color:#9ca3af }
+.no-select{ user-select:none; }
+

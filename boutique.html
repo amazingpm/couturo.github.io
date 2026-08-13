@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Boutique - Couturo Business</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <!-- reuse header by duplicating simplified header -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2"><img src="images/logo.jpg" alt="Couturo Business" class="h-12"><span class="brand-title">Couturo Business</span></a>
+      <div class="flex items-center gap-3">
+        <input id="search-input" type="search" placeholder="Rechercher..." class="border rounded pl-3 pr-10 py-1 text-sm">
+        <a href="panier.html" class="relative">Panier <span id="cart-count" class="ml-1 bg-red-600 text-white rounded-full text-xs px-2">0</span></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Boutique</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" id="shop-list"></div>
+  </main>
+
+  <footer class="bg-white mt-12 py-6">
+    <div class="container mx-auto px-4 text-sm text-gray-600">© Couturo</div>
+  </footer>
+
+  <script src="js/cart.js"></script>
+  <script src="data/products.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      renderProductsList('#shop-list', window.PRODUCTS);
+      Cart.renderCartCount();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact - Couturo Business</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-2"><img src="images/logo.jpg" alt="Couturo Business" class="h-12"></a>
+      <a href="panier.html" class="relative">Panier <span id="cart-count" class="ml-1 bg-red-600 text-white rounded-full text-xs px-2">0</span></a>
+    </div>
+  </header>
+
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4">Contactez-nous</h1>
+    <div class="bg-white p-6 rounded">
+      <p>Assistance WhatsApp: <a class="text-indigo-600" href="https://wa.me/243977000858">+243977000858</a></p>
+      <form id="contact-form" class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input placeholder="Nom" class="border p-2 rounded" required>
+        <input placeholder="Email" class="border p-2 rounded" required>
+        <input placeholder="Sujet" class="border p-2 rounded col-span-2" required>
+        <textarea placeholder="Message" class="border p-2 rounded col-span-2" rows="6" required></textarea>
+        <button class="bg-indigo-600 text-white px-4 py-2 rounded col-span-2">Envoyer</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-white mt-12 py-6"><div class="container mx-auto px-4 text-sm text-gray-600">© Couturo</div></footer>
+
+  <script src="js/cart.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', ()=>Cart.renderCartCount());</script>
+</body>
+</html>
