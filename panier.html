@@ -109,6 +109,18 @@
     <div class="container footer-bottom">© 2026 Couturo Business — Tous droits réservés.</div>
   </footer>
 
+  <div id="clear-cart-modal" class="confirm-modal-backdrop" aria-hidden="true">
+    <div class="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="clear-cart-title">
+      <button type="button" class="confirm-modal-close" aria-label="Fermer">×</button>
+      <div class="confirm-modal-icon">!</div>
+      <h3 id="clear-cart-title">Vider le panier ?</h3>
+      <p>Cette action supprimera tous les produits ajoutés. Voulez-vous confirmer ?</p>
+      <div class="confirm-modal-actions">
+        <button type="button" id="cancel-clear-cart" class="confirm-modal-secondary">Annuler</button>
+        <button type="button" id="confirm-clear-cart" class="confirm-modal-primary">Confirmer</button>
+      </div>
+    </div>
+  </div>
 
   <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index:10800"></div>
 
@@ -143,7 +155,38 @@
       updateSummary();
     }
     function updateSummary(){ document.getElementById('summary-sub').textContent = (typeof formatPrice === 'function' ? formatPrice(Cart.subtotal()) : ('$'+Cart.subtotal().toFixed(2))); document.getElementById('summary-shipping').textContent = (typeof formatPrice === 'function' ? formatPrice(Cart.shipping()) : ('$'+Cart.shipping().toFixed(2))); document.getElementById('summary-total').textContent = (typeof formatPrice === 'function' ? formatPrice(Cart.total()) : ('$'+Cart.total().toFixed(2))); document.getElementById('cart-count').textContent = Cart.all().reduce((s,i)=>s+i.qty,0); }
-    document.addEventListener('DOMContentLoaded', ()=>{ renderCartPage(); document.getElementById('btn-clear').addEventListener('click', ()=>{ if(confirm('Vider le panier ?')){ Cart.clear(); renderCartPage(); } }); document.getElementById('btn-pay').addEventListener('click', sendCartToWhatsapp); });
+
+    function openClearCartModal(){
+      const modal = document.getElementById('clear-cart-modal');
+      if(!modal) return;
+      modal.classList.add('is-visible');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeClearCartModal(){
+      const modal = document.getElementById('clear-cart-modal');
+      if(!modal) return;
+      modal.classList.remove('is-visible');
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    document.addEventListener('DOMContentLoaded', ()=>{
+      renderCartPage();
+
+      document.getElementById('btn-clear').addEventListener('click', openClearCartModal);
+      document.getElementById('cancel-clear-cart').addEventListener('click', closeClearCartModal);
+      document.getElementById('confirm-clear-cart').addEventListener('click', ()=>{
+        Cart.clear();
+        renderCartPage();
+        closeClearCartModal();
+      });
+      document.querySelector('.confirm-modal-close').addEventListener('click', closeClearCartModal);
+      document.getElementById('clear-cart-modal').addEventListener('click', (event) => {
+        if(event.target === event.currentTarget) closeClearCartModal();
+      });
+
+      document.getElementById('btn-pay').addEventListener('click', sendCartToWhatsapp);
+    });
   </script>
 </body>
 </html>
