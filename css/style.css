@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap');
 
 :root{
-	--primary:#0b2b4a; /* deep navy */
+	--primary:#0b5ed7; /* bootstrap primary blue */
 	--accent:#ff6a00; /* warm accent */
 	--muted:#6b7280;
-	--brand:#0f172a;
+	--brand:#0b1726;
 }
 
 /* Base fonts */
@@ -29,18 +29,25 @@ header .container{ display:flex; align-items:center; justify-content:space-betwe
 .product-card:hover{ transform:translateY(-6px); box-shadow:0 8px 20px rgba(2,6,23,0.08); }
 
 /* Product card layout for grid */
-.product-card .product-image{ height:240px; object-fit:cover; width:100%; border-bottom:1px solid #eef2f7 }
+.product-card .product-image{ height:180px; object-fit:cover; width:100%; border-bottom:1px solid #eef2f7 }
+.product-card .product-body{ padding:12px }
 .product-card .product-body{ padding:12px }
 .product-card .product-title{ font-weight:600; color:var(--primary); }
 .product-card .product-price{ color:var(--accent); font-weight:700 }
 
 /* Gallery and images */
-.gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px }
-.gallery-grid img{ width:100%; height:140px; object-fit:cover; border-radius:6px }
+.gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px }
+.gallery-grid img{ width:100%; height:100px; object-fit:cover; border-radius:6px }
 
 /* Footer tweaks */
-footer{ border-top:1px solid #eef2f7 }
-footer a{ color:var(--primary); text-decoration:none }
+
+/* Header and footer blue theme */
+header{ background:var(--primary); color:#fff }
+header a, header .brand-title, header input, header select, header button{ color:inherit }
+header .brand-title{ color:#fff }
+header .container a img{ filter:brightness(0) invert(1) }
+footer{ background:var(--primary); color:#fff; border-top:0 }
+footer a{ color:rgba(255,255,255,0.9) }
 
 /* Small helpers for toast layout */
 #toast-container .toast{ min-width:260px }

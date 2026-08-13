@@ -1,4 +1,4 @@
-function formatPrice(v){ return '$' + Number(v).toFixed(2); }
+function formatPrice(v){ try{ return Number(v).toLocaleString('fr-FR') + ' CDF'; }catch(e){ return v + ' CDF'; } }
 
 function renderProductsList(targetSelector, products){
   const root = document.querySelector(targetSelector);

@@ -27,9 +27,9 @@
       <aside class="bg-white p-4 rounded">
         <h2 class="font-semibold">Récapitulatif</h2>
         <div class="mt-3">
-          <div class="flex justify-between"><span>Sous-total</span><span id="summary-sub">$0.00</span></div>
-          <div class="flex justify-between"><span>Livraison</span><span id="summary-shipping">$0.00</span></div>
-          <div class="flex justify-between font-bold mt-2"><span>Total</span><span id="summary-total">$0.00</span></div>
+          <div class="flex justify-between"><span>Sous-total</span><span id="summary-sub">0 CDF</span></div>
+          <div class="flex justify-between"><span>Livraison</span><span id="summary-shipping">0 CDF</span></div>
+          <div class="flex justify-between font-bold mt-2"><span>Total</span><span id="summary-total">0 CDF</span></div>
         </div>
         <div class="mt-4">
           <button id="btn-clear" class="w-full bg-gray-200 py-2 rounded mb-2">Vider le panier</button>
@@ -63,7 +63,7 @@
         const img = document.createElement('img'); img.src = i.image || 'images/logo.jpg'; img.className = 'w-20 h-20 object-cover';
         const body = document.createElement('div'); body.className = 'flex-1';
         const title = document.createElement('div'); title.className = 'font-semibold'; title.textContent = i.name;
-        const priceInfo = document.createElement('div'); priceInfo.className='text-sm text-gray-600'; priceInfo.textContent = 'Prix: $' + i.price.toFixed(2);
+        const priceInfo = document.createElement('div'); priceInfo.className='text-sm text-muted'; priceInfo.textContent = 'Prix: ' + (typeof formatPrice === 'function' ? formatPrice(i.price) : ('$'+i.price.toFixed(2)));
         const controls = document.createElement('div'); controls.className = 'mt-2 flex items-center gap-2';
         const btnDec = document.createElement('button'); btnDec.className='dec px-2 py-1 bg-gray-200'; btnDec.dataset.id = i.id; btnDec.textContent='-';
         const qtySpan = document.createElement('span'); qtySpan.id = 'qty-' + i.id; qtySpan.textContent = i.qty;
@@ -71,7 +71,7 @@
         const btnDel = document.createElement('button'); btnDel.className='ml-4 text-sm text-red-600 del'; btnDel.dataset.id = i.id; btnDel.textContent='Supprimer';
         controls.appendChild(btnDec); controls.appendChild(qtySpan); controls.appendChild(btnInc); controls.appendChild(btnDel);
         body.appendChild(title); body.appendChild(priceInfo); body.appendChild(controls);
-        const total = document.createElement('div'); total.className='font-semibold'; total.textContent = '$' + (i.price*i.qty).toFixed(2);
+        const total = document.createElement('div'); total.className='font-semibold'; total.textContent = (typeof formatPrice === 'function' ? formatPrice(i.price*i.qty) : ('$'+(i.price*i.qty).toFixed(2)));
         row.appendChild(img); row.appendChild(body); row.appendChild(total);
         root.appendChild(row);
       });
@@ -80,7 +80,7 @@
       document.querySelectorAll('.del').forEach(b=>b.addEventListener('click', ()=>{ Cart.remove(b.dataset.id); renderCartPage(); }));
       updateSummary();
     }
-    function updateSummary(){ document.getElementById('summary-sub').textContent = '$'+Cart.subtotal().toFixed(2); document.getElementById('summary-shipping').textContent = '$'+Cart.shipping().toFixed(2); document.getElementById('summary-total').textContent = '$'+Cart.total().toFixed(2); document.getElementById('cart-count').textContent = Cart.all().reduce((s,i)=>s+i.qty,0); }
+    function updateSummary(){ document.getElementById('summary-sub').textContent = (typeof formatPrice === 'function' ? formatPrice(Cart.subtotal()) : ('$'+Cart.subtotal().toFixed(2))); document.getElementById('summary-shipping').textContent = (typeof formatPrice === 'function' ? formatPrice(Cart.shipping()) : ('$'+Cart.shipping().toFixed(2))); document.getElementById('summary-total').textContent = (typeof formatPrice === 'function' ? formatPrice(Cart.total()) : ('$'+Cart.total().toFixed(2))); document.getElementById('cart-count').textContent = Cart.all().reduce((s,i)=>s+i.qty,0); }
     document.addEventListener('DOMContentLoaded', ()=>{ renderCartPage(); document.getElementById('btn-clear').addEventListener('click', ()=>{ if(confirm('Vider le panier ?')){ Cart.clear(); renderCartPage(); } }); document.getElementById('btn-pay').addEventListener('click', sendCartToWhatsapp); });
   </script>
 </body>
