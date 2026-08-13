@@ -12,6 +12,8 @@ const Cart = (function(){
     if(existing){ existing.qty += qty; }
     else cart.push({id:item.id,name:item.name,price:item.price,qty, image: item.images && item.images[0]});
     write(cart); renderCartCount();
+    // show add-to-cart notification (Bootstrap toast)
+    try{ showToast(`${item.name} a été ajouté au panier.`); }catch(e){ /* ignore */ }
   }
   function update(id, qty){
     const cart = read();
@@ -38,9 +40,31 @@ const Cart = (function(){
 
 document.addEventListener('DOMContentLoaded', ()=>{ Cart.renderCartCount(); });
 
+// Create a Bootstrap toast message and show it
+function showToast(message){
+  const container = document.getElementById('toast-container');
+  if(!container){ alert(message); return; }
+  const toastWrap = document.createElement('div');
+  toastWrap.innerHTML = `
+    <div class="toast align-items-center text-bg-white border shadow-sm mb-2" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body">${message}</div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>`;
+  const toastEl = toastWrap.firstElementChild;
+  container.appendChild(toastEl);
+  try{
+    const btoast = new bootstrap.Toast(toastEl, { delay: 3000 });
+    btoast.show();
+    // remove from DOM after hidden
+    toastEl.addEventListener('hidden.bs.toast', ()=>{ toastEl.remove(); });
+  }catch(e){ /* fallback to alert */ console.log('toast error', e); }
+}
+
 function sendCartToWhatsapp(){
   const items = Cart.all();
-  if(items.length===0){ alert('Votre panier est vide'); return; }
+  if(items.length===0){ showToast('Votre panier est vide.'); return; }
   let msg = 'Commande Couturo Business\n';
   items.forEach(i=>{ msg += `- ${i.name} x${i.qty} : $${(i.price*i.qty).toFixed(2)}\n`; });
   msg += `\nSous-total: $${Cart.subtotal().toFixed(2)}\nLivraison: $${Cart.shipping().toFixed(2)}\nTotal: $${Cart.total().toFixed(2)}`;
