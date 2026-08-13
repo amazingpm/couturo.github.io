@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Promotions - Couturo Business</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz1FQZL4l9gqQ8K/uxQe1YkzU6qVQ5KkNf5Q5n9JVo5F8" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="topbar">
+      <div class="container">
+        <div>Livraison offerte dès 100000 CDF</div>
+        <div class="topbar-links">
+          <a href="contact.html">Support</a>
+          <a href="https://wa.me/243977000858">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-main">
+      <div class="container">
+        <div class="brand-wrap">
+          <a href="index.html" class="brand-wrap">
+            <img src="images/logo.jpg" alt="Couturo Business">
+            <span class="brand-title">Couturo Business</span>
+          </a>
+        </div>
+
+        <div class="header-search">
+          <input id="search-input" type="search" placeholder="Rechercher produit, collection, marque...">
+          <span class="search-icon">⌕</span>
+          <div id="search-results" class="absolute right-0 mt-1 w-80 bg-white shadow z-50"></div>
+        </div>
+
+        <div class="header-actions">
+          <select class="lang-select">
+            <option>FR</option>
+            <option>EN</option>
+          </select>
+          <a href="panier.html" class="cart-pill" aria-label="Panier">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7M17 13l1.5 7M9 20h6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="cart-count">0</span>
+          </a>
+          <a href="contact.html" class="header-cta">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <nav class="main-nav">
+      <div class="container">
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="boutique.html?cat=homme">Homme</a></li>
+          <li><a href="boutique.html?cat=femme">Femme</a></li>
+          <li><a href="boutique.html?cat=enfants">Enfants</a></li>
+          <li><a href="promotion.html" style="color:var(--primary);">Promotions</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container promo-page">
+    <section class="promo-hero">
+      <div class="promo-hero-copy">
+        <span class="promo-pill">Offres limitées</span>
+        <h1>Profitez des meilleures promos du moment.</h1>
+        <p>Des pièces tendance, des essentiels du quotidien et des réductions exclusives pour faire du style une belle affaire. Achetez vite, les stocks sont limités.</p>
+        <div class="promo-hero-stats">
+          <div class="promo-stat">
+            <strong>1 200+</strong>
+            <span>articles promos</span>
+          </div>
+          <div class="promo-stat">
+            <strong>-30%</strong>
+            <span>en moyenne</span>
+          </div>
+          <div class="promo-stat">
+            <strong>24h</strong>
+            <span>livraison rapide</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="promo-hero-panel">
+        <div class="promo-panel-content">
+          <span>Flash sale</span>
+          <strong>-40%</strong>
+          <span>sur les meilleures ventes cette semaine</span>
+          <a href="#promo-list">Voir les offres</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="promo-section-head" id="promo-list">
+      <h2>Promotions du moment</h2>
+      <p>Des réductions sur les essentiels mode, accessoires et chaussures.</p>
+    </section>
+
+    <section id="promo-products" class="promo-grid"></section>
+
+    <section class="promo-benefits">
+      <div class="promo-benefit">
+        <div class="icon">✓</div>
+        <h3>Achats sécurisés</h3>
+        <p>Paiement fiable, suivi de commande simple et service client réactif.</p>
+      </div>
+      <div class="promo-benefit">
+        <div class="icon">⚡</div>
+        <h3>Livraison rapide</h3>
+        <p>Recevez vos commandes rapidement avec une livraison rapide et fiable.</p>
+      </div>
+      <div class="promo-benefit">
+        <div class="icon">★</div>
+        <h3>Qualité premium</h3>
+        <p>Des produits choisis avec soin pour allier style, confort et durabilité.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div>
+        <div class="footer-brand">
+          <img src="images/logo.jpg" alt="Couturo Business">
+          <div><h4>Couturo Business</h4></div>
+        </div>
+        <p style="margin-top:16px; color:#c3cedd; line-height:1.7;">Mode, accessoires et essentiels du quotidien avec des offres qui font la différence.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="boutique.html">Boutique</a></li>
+          <li><a href="promotion.html">Promotions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Catégories</h4>
+        <ul>
+          <li><a href="boutique.html?cat=homme">Homme</a></li>
+          <li><a href="boutique.html?cat=femme">Femme</a></li>
+          <li><a href="boutique.html?cat=enfants">Enfants</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:contact@couturo.com">contact@couturo.com</a></li>
+          <li><a href="https://wa.me/243977000858">+243 977 000 858</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="container footer-bottom">© 2026 Couturo Business — Tous droits réservés.</div>
+  </footer>
+
+  <div id="toast-container" class="position-fixed top-0 end-0 p-3" style="z-index:10800"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qQ2rWq6mK8Q+YkG6+7gGQZsI5Y5b1K9f6Y9j6Z8s1V9j6k7G6q1b2c3d4e5f6g7h" crossorigin="anonymous"></script>
+  <script src="js/cart.js"></script>
+  <script src="data/products.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/search.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const promoItems = window.PRODUCTS.filter(item => item.oldPrice && item.oldPrice > item.price);
+      const root = document.getElementById('promo-products');
+      if(root){
+        root.innerHTML = promoItems.map(item => `
+          <article class="promo-card">
+            <div class="promo-card-image">
+              <img src="${item.images[0]}" alt="${item.name}">
+              <span class="promo-badge-top">-${Math.round(((item.oldPrice - item.price) / item.oldPrice) * 100)}%</span>
+            </div>
+            <div class="promo-card-body">
+              <h3>${item.name}</h3>
+              <div class="promo-pricing">
+                <span class="promo-old-price">${formatPrice(item.oldPrice)}</span>
+                <span class="promo-price">${formatPrice(item.price)}</span>
+              </div>
+              <div class="promo-note">Livraison rapide • Paiement sécurisé</div>
+              <div class="promo-card-actions">
+                <button class="add-to-cart btn-blue" data-id="${item.id}">Ajouter</button>
+                <a href="produit.html?id=${item.id}" class="secondary-link">Voir</a>
+              </div>
+            </div>
+          </article>
+        `).join('');
+
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const prod = window.PRODUCTS.find(x => x.id === btn.dataset.id);
+            if(prod) Cart.add(prod, 1);
+          });
+        });
+      }
+      Cart.renderCartCount();
+    });
+  </script>
+</body>
+</html>
