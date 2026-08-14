@@ -46,6 +46,8 @@ const CATEGORY_IMAGES = {
   }
 };
 
+window.CATEGORY_IMAGES = CATEGORY_IMAGES;
+
 function getActiveCategory() {
   const params = new URLSearchParams(window.location.search);
   const requested = params.get('cat');
