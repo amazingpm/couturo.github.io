@@ -1,4 +1,13 @@
-function formatPrice(v){ try{ return Number(v).toLocaleString('fr-FR') + ' CDF'; }catch(e){ return v + ' CDF'; } }
+function formatPrice(v){
+  const value = Number(v);
+  if (Number.isNaN(value)) return '$0.00';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(value);
+}
 
 function renderProductsList(targetSelector, products){
   const root = document.querySelector(targetSelector);

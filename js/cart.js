@@ -116,9 +116,16 @@ function closeCartDialog(){
   document.body.classList.remove('modal-open');
 }
 
-// Format numbers as Francs Congolais (CDF) abbreviated
+// Format numbers as US Dollars
 function formatPrice(value){
-  try{ return Number(value).toLocaleString('fr-FR') + ' CDF'; }catch(e){ return value + ' CDF'; }
+  const amount = Number(value);
+  if (Number.isNaN(amount)) return '$0.00';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(amount);
 }
 
 function sendCartToWhatsapp(){
