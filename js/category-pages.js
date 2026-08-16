@@ -22,11 +22,11 @@ const CATEGORY_IMAGES = {
     folder: 'images/homme',
     images: sortCategoryImages([
       'images/homme/1.jpg','images/homme/2.jpg','images/homme/3.jpg','images/homme/4.jpg','images/homme/5.jpg',
-      'images/homme/IMG-20260813-WA0016.jpg','images/homme/IMG-20260813-WA0017.jpg','images/homme/IMG-20260813-WA0018.jpg','images/homme/IMG-20260813-WA0019.jpg','images/homme/IMG-20260813-WA0020.jpg',
-      'images/homme/IMG-20260813-WA0088.jpg','images/homme/IMG-20260813-WA0089.jpg','images/homme/IMG-20260813-WA0090.jpg','images/homme/IMG-20260813-WA0091.jpg','images/homme/IMG-20260813-WA0092.jpg',
-      'images/homme/IMG-20260813-WA0093.jpg','images/homme/IMG-20260813-WA0094.jpg','images/homme/IMG-20260813-WA0095.jpg','images/homme/IMG-20260813-WA0096.jpg','images/homme/IMG-20260813-WA0097.jpg',
-      'images/homme/IMG-20260813-WA0098.jpg','images/homme/IMG-20260813-WA0099.jpg','images/homme/IMG-20260813-WA0100.jpg','images/homme/IMG-20260813-WA0101.jpg','images/homme/IMG-20260813-WA0102.jpg',
-      'images/homme/IMG-20260813-WA0219.jpg','images/homme/IMG-20260813-WA0220.jpg'
+      'images/homme/6.jpg','images/homme/7.jpg','images/homme/16.jpg','images/homme/20.jpg','images/homme/24.jpg',
+      'images/homme/8.jpg','images/homme/9.jpg','images/homme/17.jpg','images/homme/21.jpg','images/homme/25.jpg',
+      'images/homme/10.jpg','images/homme/11.jpg','images/homme/18.jpg','images/homme/22.jpg','images/homme/26.jpg',
+      'images/homme/12.jpg','images/homme/13.jpg','images/homme/19.jpg','images/homme/23.jpg','images/homme/27.jpg',
+      'images/homme/14.jpg','images/homme/15.jpg'
     ])
   },
   femme: {
