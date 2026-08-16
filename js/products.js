@@ -9,6 +9,14 @@ function formatPrice(v){
   }).format(value);
 }
 
+function openDirectBuy(product){
+  if (!product) return;
+  Cart.add(product, 1);
+  const msg = `Bonjour, je souhaite commander ${product.name} (${formatPrice(product.price)}).`;
+  const url = `https://wa.me/243977000858?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
 function renderProductsList(targetSelector, products){
   const root = document.querySelector(targetSelector);
   if(!root) return;
@@ -21,17 +29,26 @@ function renderProductsList(targetSelector, products){
           ${p.oldPrice?`<span class="text-muted text-decoration-line-through me-2">${formatPrice(p.oldPrice)}</span>`:''}
           <span class="product-price">${formatPrice(p.price)}</span>
         </div>
-        <div class="mt-3 d-flex align-items-center justify-content-between">
-          <button class="add-to-cart btn btn-sm btn-primary" data-id="${p.id}">Ajouter</button>
+        <div class="mt-3 d-flex align-items-center justify-content-between gap-2">
+          <button class="add-to-cart btn btn-sm btn-primary" data-id="${p.id}">Panier</button>
+          <button class="buy-now btn btn-sm btn-success" data-id="${p.id}">Payer</button>
           <a href="produit.html?id=${p.id}" class="text-muted small">Voir</a>
         </div>
       </div>
     </div>
   `).join('');
+
   document.querySelectorAll('.add-to-cart').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const id = btn.dataset.id; const prod = window.PRODUCTS.find(x=>x.id===id);
       if(prod) Cart.add(prod,1);
+    });
+  });
+
+  document.querySelectorAll('.buy-now').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const id = btn.dataset.id; const prod = window.PRODUCTS.find(x=>x.id===id);
+      if(prod) openDirectBuy(prod);
     });
   });
 }
@@ -59,8 +76,9 @@ function renderProductDetail(){
           ${p.oldPrice?`<span class="text-muted text-decoration-line-through me-2">${formatPrice(p.oldPrice)}</span>`:''}
           <span class="text-2xl product-price">${formatPrice(p.price)}</span>
         </div>
-        <div class="mt-6 d-flex gap-3">
-          <button id="btn-add" class="btn btn-success">Ajouter au panier</button>
+        <div class="mt-6 d-flex gap-3 flex-wrap">
+          <button id="btn-add" class="btn btn-primary">Ajouter au panier</button>
+          <button id="btn-buy" class="btn btn-success">Payer directement</button>
           <a href="panier.html" class="btn btn-outline-secondary">Voir panier</a>
         </div>
       </div>
@@ -73,4 +91,5 @@ function renderProductDetail(){
     });
   });
   document.getElementById('btn-add').addEventListener('click', ()=>{ Cart.add(p,1); });
+  document.getElementById('btn-buy').addEventListener('click', ()=>{ openDirectBuy(p); });
 }
