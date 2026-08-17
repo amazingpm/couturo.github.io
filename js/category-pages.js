@@ -1,4 +1,4 @@
- function getImageNumberFromPath(path) {
+function getImageNumberFromPath(path) {
   const fileName = path.split('/').pop().replace(/\.[^/.]+$/, '');
   const numbers = fileName.match(/\d+/g);
 
@@ -16,60 +16,41 @@ function sortCategoryImages(images) {
   });
 }
 
-const CATEGORY_IMAGES = {
-  homme: {
-    label: 'Homme',
-    folder: 'images/homme',
-    images: sortCategoryImages([
-      'images/homme/1.jpg','images/homme/2.jpg','images/homme/3.jpg','images/homme/4.jpg','images/homme/5.jpg',
-      'images/homme/6.jpg','images/homme/7.jpg','images/homme/16.jpg','images/homme/20.jpg','images/homme/24.jpg',
-      'images/homme/8.jpg','images/homme/9.jpg','images/homme/17.jpg','images/homme/21.jpg','images/homme/25.jpg',
-      'images/homme/10.jpg','images/homme/11.jpg','images/homme/18.jpg','images/homme/22.jpg','images/homme/26.jpg',
-      'images/homme/12.jpg','images/homme/13.jpg','images/homme/19.jpg','images/homme/23.jpg','images/homme/27.jpg',
-      'images/homme/14.jpg','images/homme/15.jpg'
-    ])
-  },
-  femme: {
-    label: 'Femme',
-    folder: 'images/femme',
-    images: sortCategoryImages([
-      'images/femme/1.jpg','images/femme/2.jpg','images/femme/3.jpg','images/femme/4.jpg','images/femme/5.jpg',
-      'images/femme/IMG-20260813-WA0191.jpg','images/femme/IMG-20260813-WA0192.jpg','images/femme/IMG-20260813-WA0193.jpg','images/femme/IMG-20260813-WA0194.jpg','images/femme/IMG-20260813-WA0195.jpg',
-      'images/femme/IMG-20260813-WA0196.jpg','images/femme/IMG-20260813-WA0197.jpg','images/femme/IMG-20260813-WA0199.jpg','images/femme/IMG-20260813-WA0200.jpg','images/femme/IMG-20260813-WA0201.jpg',
-      'images/femme/IMG-20260813-WA0202.jpg','images/femme/IMG-20260813-WA0203.jpg','images/femme/IMG-20260813-WA0204.jpg','images/femme/IMG-20260813-WA0213.jpg','images/femme/IMG-20260813-WA0215.jpg','images/femme/IMG-20260813-WA0216.jpg'
-    ])
-  },
-  enfants: {
-    label: 'Enfants',
-    folder: 'images/enfants',
-    images: sortCategoryImages([
-      'images/enfants/1.jpg','images/enfants/2.jpg','images/enfants/3.jpg','images/enfants/4.jpg','images/enfants/5.jpg',
-      'images/enfants/IMG-20260813-WA0051.jpg','images/enfants/IMG-20260813-WA0052.jpg','images/enfants/IMG-20260813-WA0053.jpg','images/enfants/IMG-20260813-WA0054.jpg','images/enfants/IMG-20260813-WA0055.jpg',
-      'images/enfants/IMG-20260813-WA0056.jpg','images/enfants/IMG-20260813-WA0057.jpg','images/enfants/IMG-20260813-WA0058.jpg','images/enfants/IMG-20260813-WA0133.jpg','images/enfants/IMG-20260813-WA0134.jpg',
-      'images/enfants/IMG-20260813-WA0135.jpg','images/enfants/IMG-20260813-WA0136.jpg','images/enfants/IMG-20260813-WA0137.jpg','images/enfants/IMG-20260813-WA0138.jpg','images/enfants/IMG-20260813-WA0139.jpg',
-      'images/enfants/IMG-20260813-WA0150.jpg','images/enfants/IMG-20260813-WA0152.jpg','images/enfants/IMG-20260813-WA0154.jpg'
-    ])
-  },
-  accessoires: {
-    label: 'Accessoires',
-    folder: 'images/accessoires',
-    images: sortCategoryImages([
-      'images/accessoires/1.jpg','images/accessoires/2.jpg','images/accessoires/3.jpg','images/accessoires/4.jpg','images/accessoires/5.jpg',
-      'images/accessoires/IMG-20260813-WA0143.jpg','images/accessoires/IMG-20260813-WA0145.jpg','images/accessoires/IMG-20260813-WA0176.jpg','images/accessoires/IMG-20260813-WA0177.jpg','images/accessoires/IMG-20260813-WA0178.jpg',
-      'images/accessoires/IMG-20260813-WA0179.jpg','images/accessoires/IMG-20260813-WA0180.jpg','images/accessoires/IMG-20260813-WA0183.jpg','images/accessoires/IMG-20260813-WA0184.jpg','images/accessoires/IMG-20260813-WA0185.jpg',
-      'images/accessoires/IMG-20260813-WA0186.jpg','images/accessoires/IMG-20260813-WA0187.jpg','images/accessoires/IMG-20260813-WA0188.jpg','images/accessoires/IMG-20260813-WA0189.jpg','images/accessoires/IMG-20260813-WA0190.jpg',
-      'images/accessoires/IMG-20260813-WA0205.jpg','images/accessoires/IMG-20260813-WA0206.jpg','images/accessoires/IMG-20260813-WA0207.jpg','images/accessoires/IMG-20260813-WA0208.jpg','images/accessoires/IMG-20260813-WA0209.jpg',
-      'images/accessoires/IMG-20260813-WA0210.jpg','images/accessoires/IMG-20260813-WA0211.jpg','images/accessoires/kepi1.jpg','images/accessoires/kepi2.jpg','images/accessoires/kepi3.jpg'
-    ])
-  },
-  chaussures: {
-    label: 'Chaussures',
-    folder: 'images/chaussures',
-    images: sortCategoryImages(Array.from({ length: 88 }, (_, index) => `images/chaussures/${index + 1}.jpg`))
-  }
-};
+function buildCategoryImagesFromProducts() {
+  const products = Array.isArray(window.PRODUCTS) ? window.PRODUCTS : [];
+  const categories = {};
 
-window.CATEGORY_IMAGES = CATEGORY_IMAGES;
+  products.forEach((product) => {
+    const key = String(product.category || 'general').trim().toLowerCase();
+    if (!key) return;
+
+    if (!categories[key]) {
+      categories[key] = {
+        label: key.charAt(0).toUpperCase() + key.slice(1),
+        folder: `images/${key}`,
+        images: []
+      };
+    }
+
+    const images = Array.isArray(product.images) ? product.images : [];
+    categories[key].images.push(...images);
+  });
+
+  Object.keys(categories).forEach((key) => {
+    categories[key].images = sortCategoryImages(categories[key].images);
+  });
+
+  return categories;
+}
+
+function refreshCategoryImages() {
+  const built = buildCategoryImagesFromProducts();
+  window.CATEGORY_IMAGES = built;
+  return built;
+}
+
+const CATEGORY_IMAGES = refreshCategoryImages();
+window.refreshCategoryImages = refreshCategoryImages;
 
 function getActiveCategory() {
   const params = new URLSearchParams(window.location.search);
@@ -79,14 +60,15 @@ function getActiveCategory() {
   const pageName = window.location.pathname.split('/').pop().replace(/\.html$/i, '');
   if (CATEGORY_IMAGES[pageName]) return pageName;
 
-  return 'homme';
+  const firstCategory = Object.keys(CATEGORY_IMAGES)[0] || 'homme';
+  return firstCategory;
 }
 
 function renderCategoryStories(category) {
   const strip = document.getElementById('category-story-strip');
   if (!strip) return;
 
-  const tiles = category.images.slice(0, 7).map((src, index) => `
+  const tiles = (category.images || []).slice(0, 7).map((src, index) => `
     <div class="story-pill" title="${category.label} ${index + 1}">
       <div class="story-ring">
         <img src="${src}" alt="${category.label} ${index + 1}" loading="lazy">
@@ -98,22 +80,71 @@ function renderCategoryStories(category) {
   strip.innerHTML = tiles;
 }
 
+function bindCategoryProductActions() {
+  document.querySelectorAll('.add-to-cart').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      const product = (window.PRODUCTS || []).find((p) => p.id === id);
+      if (product) Cart.add(product, 1);
+    });
+  });
+
+  document.querySelectorAll('.buy-now').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      const product = (window.PRODUCTS || []).find((p) => p.id === id);
+      if (product && typeof openDirectBuy === 'function') {
+        openDirectBuy(product);
+      }
+    });
+  });
+}
+
 function renderCategoryGallery() {
   const el = document.getElementById('category-gallery');
   if (!el) return;
 
-  const category = CATEGORY_IMAGES[getActiveCategory()];
+  const activeCategory = getActiveCategory();
+  const category = CATEGORY_IMAGES[activeCategory];
+  const products = (window.PRODUCTS || []).filter((p) => String(p.category || '').toLowerCase() === String(activeCategory || '').toLowerCase());
+
   if (!category) return;
 
   const titleEl = document.getElementById('category-title');
   if (titleEl) titleEl.textContent = category.label;
 
   const countEl = document.getElementById('category-count');
-  if (countEl) countEl.textContent = `${category.images.length} images · Collection ${category.label}`;
+  if (countEl) countEl.textContent = `${products.length || (category.images || []).length} produits · Collection ${category.label}`;
 
   renderCategoryStories(category);
 
-  el.innerHTML = category.images.map((src, index) => `
+  if (products.length) {
+    el.innerHTML = products.map((product) => {
+      const firstImage = product.images && product.images[0] ? product.images[0] : 'images/logo.jpg';
+      return `
+        <article class="product-card bg-white rounded overflow-hidden">
+          <a href="produit.html?id=${product.id}"><img src="${firstImage}" alt="${product.name}" class="product-image" onerror="this.onerror=null;this.src='images/logo.jpg';"></a>
+          <div class="product-body">
+            <h3 class="product-title">${product.name}</h3>
+            <div class="mt-2">
+              ${product.oldPrice ? `<span class="text-muted text-decoration-line-through me-2">${formatPrice(product.oldPrice)}</span>` : ''}
+              <span class="product-price">${formatPrice(product.price)}</span>
+            </div>
+            <div class="mt-3 d-flex align-items-center justify-content-between gap-2">
+              <button class="add-to-cart btn btn-sm btn-primary" data-id="${product.id}">Panier</button>
+              <button class="buy-now btn btn-sm btn-success" data-id="${product.id}">Payer</button>
+              <a href="produit.html?id=${product.id}" class="text-muted small">Voir</a>
+            </div>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    bindCategoryProductActions();
+    return;
+  }
+
+  el.innerHTML = (category.images || []).map((src, index) => `
     <article class="category-tile">
       <div class="category-image-wrap">
         <img src="${src}" alt="${category.label} ${index + 1}" loading="lazy">

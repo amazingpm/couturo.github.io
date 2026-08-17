@@ -59,19 +59,31 @@
   </header>
 
   <main class="container page-shell">
+    <div class="modern-cart-header">
+      <div>
+        <span class="kicker">Mon panier</span>
+        <h1>Votre sélection</h1>
+      </div>
+      <button id="btn-clear" class="ghost-btn">Vider le panier</button>
+    </div>
+
     <div class="cart-grid">
-      <div class="page-card">
-        <h1 style="margin-top:0; color:var(--navy);">Votre panier</h1>
+      <div class="page-card cart-panel">
         <div id="cart-items"></div>
       </div>
+
       <aside class="page-card summary-box">
-        <h2 style="margin-top:0; color:var(--navy);">Récapitulatif</h2>
+        <h2>Récapitulatif</h2>
         <div class="summary-row"><span>Sous-total</span><strong id="summary-sub">$0.00</strong></div>
         <div class="summary-row"><span>Livraison</span><strong id="summary-shipping">$0.00</strong></div>
         <div class="summary-row total"><span>Total</span><strong id="summary-total">$0.00</strong></div>
-        <div class="detail-actions" style="display:block; margin-top:18px;">
-          <button id="btn-clear" class="secondary-btn" style="width:100%; margin-bottom:12px;">Vider</button>
-          <button id="btn-pay" class="primary-btn" style="width:100%;">Payer via WhatsApp</button>
+
+        <div class="promo-note">
+          <span>✅ Livraison incluse : 2 USD</span>
+        </div>
+
+        <div class="detail-actions">
+          <button id="btn-pay" class="primary-btn modern-payment-btn">Payer maintenant</button>
         </div>
       </aside>
     </div>
@@ -141,19 +153,30 @@
       if(items.length===0){ root.innerHTML = '<div class="p-6 text-center">Votre panier est vide</div>'; updateSummary(); return; }
       root.innerHTML = '';
       items.forEach(i=>{
-        const row = document.createElement('div'); row.className = 'flex items-center gap-4 border-b py-3';
-        const img = document.createElement('img'); img.src = i.image || 'images/logo.jpg'; img.className = 'w-20 h-20 object-cover';
-        const body = document.createElement('div'); body.className = 'flex-1';
-        const title = document.createElement('div'); title.className = 'font-semibold'; title.textContent = i.name;
-        const priceInfo = document.createElement('div'); priceInfo.className='text-sm text-muted'; priceInfo.textContent = 'Prix: ' + (typeof formatPrice === 'function' ? formatPrice(i.price) : ('$'+i.price.toFixed(2)));
-        const controls = document.createElement('div'); controls.className = 'mt-2 flex items-center gap-2';
-        const btnDec = document.createElement('button'); btnDec.className='dec px-2 py-1 bg-gray-200'; btnDec.dataset.id = i.id; btnDec.textContent='-';
+        const row = document.createElement('div'); row.className = 'cart-item-row';
+
+        const img = document.createElement('img');
+        img.src = i.image || 'images/logo.jpg';
+        img.alt = i.name;
+
+        const body = document.createElement('div'); body.className = 'cart-item-body';
+
+        const title = document.createElement('div'); title.className = 'cart-item-title'; title.textContent = i.name;
+
+        const meta = document.createElement('div'); meta.className = 'cart-item-meta';
+        meta.innerHTML = '<span>Prix unitaire</span><strong>' + (typeof formatPrice === 'function' ? formatPrice(i.price) : ('$'+i.price.toFixed(2))) + '</strong>';
+
+        const controls = document.createElement('div'); controls.className = 'cart-item-controls';
+        const btnDec = document.createElement('button'); btnDec.className='qty-btn dec'; btnDec.dataset.id = i.id; btnDec.textContent='-';
         const qtySpan = document.createElement('span'); qtySpan.id = 'qty-' + i.id; qtySpan.textContent = i.qty;
-        const btnInc = document.createElement('button'); btnInc.className='inc px-2 py-1 bg-gray-200'; btnInc.dataset.id = i.id; btnInc.textContent='+';
-        const btnDel = document.createElement('button'); btnDel.className='ml-4 text-sm text-red-600 del'; btnDel.dataset.id = i.id; btnDel.textContent='Supprimer';
+        const btnInc = document.createElement('button'); btnInc.className='qty-btn inc'; btnInc.dataset.id = i.id; btnInc.textContent='+';
+        const btnDel = document.createElement('button'); btnDel.className='text-btn del'; btnDel.dataset.id = i.id; btnDel.textContent='Supprimer';
         controls.appendChild(btnDec); controls.appendChild(qtySpan); controls.appendChild(btnInc); controls.appendChild(btnDel);
-        body.appendChild(title); body.appendChild(priceInfo); body.appendChild(controls);
-        const total = document.createElement('div'); total.className='font-semibold'; total.textContent = (typeof formatPrice === 'function' ? formatPrice(i.price*i.qty) : ('$'+(i.price*i.qty).toFixed(2)));
+
+        body.appendChild(title); body.appendChild(meta); body.appendChild(controls);
+
+        const total = document.createElement('div'); total.className='cart-item-total'; total.textContent = (typeof formatPrice === 'function' ? formatPrice(i.price*i.qty) : ('$'+(i.price*i.qty).toFixed(2)));
+
         row.appendChild(img); row.appendChild(body); row.appendChild(total);
         root.appendChild(row);
       });
@@ -193,7 +216,7 @@
         if(event.target === event.currentTarget) closeClearCartModal();
       });
 
-      document.getElementById('btn-pay').addEventListener('click', sendCartToWhatsapp);
+      document.getElementById('btn-pay').addEventListener('click', sendCartToPayment);
     });
   </script>
 </body>

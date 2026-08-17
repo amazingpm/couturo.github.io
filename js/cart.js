@@ -128,13 +128,14 @@ function formatPrice(value){
   }).format(amount);
 }
 
-function sendCartToWhatsapp(){
+function sendCartToPayment(){
   const items = Cart.all();
   if(items.length===0){ showToast('Votre panier est vide.'); return; }
-  let msg = 'Commande Couturo Business\n';
-  items.forEach(i=>{ msg += `- ${i.name} x${i.qty} : ${formatPrice(i.price*i.qty)}\n`; });
-  msg += `\nSous-total: ${formatPrice(Cart.subtotal())}\nLivraison: ${formatPrice(Cart.shipping())}\nTotal: ${formatPrice(Cart.total())}`;
-  const phone = '243977000858';
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
+
+  const subtotal = Cart.subtotal();
+  const shipping = Cart.shipping();
+  const total = Cart.total();
+
+  const paymentUrl = `https://pay.fondeka.com/p/BYSKWPHY8?subtotal=${encodeURIComponent(subtotal.toFixed(2))}&shipping=${encodeURIComponent(shipping.toFixed(2))}&total=${encodeURIComponent(total.toFixed(2))}`;
+  window.open(paymentUrl, '_blank');
 }
