@@ -84,6 +84,7 @@
 
         <div class="detail-actions">
           <button id="btn-pay" class="primary-btn modern-payment-btn">Payer maintenant</button>
+          <button id="btn-whatsapp" class="whatsapp-btn" type="button">Commander via WhatsApp</button>
         </div>
       </aside>
     </div>
@@ -217,6 +218,7 @@
       });
 
       document.getElementById('btn-pay').addEventListener('click', sendCartToPayment);
+      document.getElementById('btn-whatsapp').addEventListener('click', sendCartToWhatsApp);
     });
   </script>
 </body>

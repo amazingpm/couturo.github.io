@@ -29,7 +29,7 @@ function renderProductsList(targetSelector, products){
           ${p.oldPrice?`<span class="text-muted text-decoration-line-through me-2">${formatPrice(p.oldPrice)}</span>`:''}
           <span class="product-price">${formatPrice(p.price)}</span>
         </div>
-        <div class="mt-3 d-flex align-items-center justify-content-between gap-2">
+        <div class="product-actions mt-3 d-flex align-items-center justify-content-between gap-2">
           <button class="add-to-cart btn btn-sm btn-primary" data-id="${p.id}">Panier</button>
           <button class="buy-now btn btn-sm btn-success" data-id="${p.id}">Payer</button>
           <a href="produit.html?id=${p.id}" class="text-muted small">Voir</a>

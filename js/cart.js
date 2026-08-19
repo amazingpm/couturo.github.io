@@ -31,7 +31,7 @@ const Cart = (function(){
   }
   function clear(){ localStorage.removeItem(KEY); renderCartCount(); }
   function subtotal(){ return read().reduce((s,i)=>s + i.price*i.qty, 0); }
-  function shipping(){ return subtotal() > 100 ? 0 : 10; }
+  function shipping(){ return subtotal() > 100 ? 0 : 2; }
   function total(){ return subtotal() + shipping(); }
   function all(){ return read(); }
   function renderCartCount(){
@@ -138,4 +138,30 @@ function sendCartToPayment(){
 
   const paymentUrl = `https://pay.fondeka.com/p/BYSKWPHY8?subtotal=${encodeURIComponent(subtotal.toFixed(2))}&shipping=${encodeURIComponent(shipping.toFixed(2))}&total=${encodeURIComponent(total.toFixed(2))}`;
   window.open(paymentUrl, '_blank');
+}
+
+function sendCartToWhatsApp(){
+  const items = Cart.all();
+  if(items.length===0){ showToast('Votre panier est vide.'); return; }
+
+  const subtotal = Cart.subtotal();
+  const shipping = Cart.shipping();
+  const total = Cart.total();
+  const orderLines = items.map((item) =>
+    `- ${item.name} x${item.qty}: ${formatPrice(item.price * item.qty)}`
+  );
+  const message = [
+    'Bonjour Couturo Business, je souhaite commander :',
+    '',
+    ...orderLines,
+    '',
+    `Sous-total : ${formatPrice(subtotal)}`,
+    `Livraison : ${formatPrice(shipping)}`,
+    `Total : ${formatPrice(total)}`,
+    '',
+    'Merci de me confirmer la commande.'
+  ].join('\n');
+
+  const whatsappUrl = `https://wa.me/243977000858?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, '_blank');
 }
