@@ -85,7 +85,7 @@ function bindCategoryProductActions() {
     btn.addEventListener('click', () => {
       const id = btn.dataset.id;
       const product = (window.PRODUCTS || []).find((p) => p.id === id);
-      if (product) Cart.add(product, 1);
+      if (product) { Cart.add(product, 1); window.location.href = 'panier.html'; }
     });
   });
 

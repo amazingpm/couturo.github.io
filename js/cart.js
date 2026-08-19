@@ -1,23 +1,41 @@
 /* Cart manager using localStorage key 'couturo_cart' */
 const Cart = (function(){
   const KEY = 'couturo_cart';
+  function catalogProduct(id){
+    return Array.isArray(window.PRODUCTS) ? window.PRODUCTS.find((product) => product.id === id) : null;
+  }
   function read(){
-    try{ return JSON.parse(localStorage.getItem(KEY)) || []; }catch(e){return [];}
+    try{
+      const storedCart = JSON.parse(localStorage.getItem(KEY)) || [];
+      return storedCart.map((item) => {
+        const product = catalogProduct(item.id);
+        if(!product) return item;
+        return {
+          ...item,
+          name: product.name,
+          price: product.price,
+          qty: Number(item.qty) || 0,
+          image: product.images && product.images[0]
+        };
+      });
+    }catch(e){return [];
+    }
   }
   function write(cart){ localStorage.setItem(KEY, JSON.stringify(cart)); }
   function find(id){ return read().find(i=>i.id===id); }
   function add(item, qty=1){
+    const product = catalogProduct(item.id) || item;
     const cart = read();
-    const existing = cart.find(i=>i.id===item.id);
-    if(existing){ existing.qty += qty; }
-    else cart.push({id:item.id,name:item.name,price:item.price,qty, image: item.images && item.images[0]});
+    const existing = cart.find(i=>i.id===product.id);
+    if(existing){ existing.qty = (Number(existing.qty) || 0) + Number(qty); }
+    else cart.push({id:product.id,name:product.name,price:product.price,qty, image: product.images && product.images[0]});
     write(cart); renderCartCount();
     try{
-      showCartDialog(item);
+      showCartDialog(product);
     }catch(e){
       console.log('cart dialog error', e);
     }
-    try{ showToast(`${item.name} a été ajouté au panier.`); }catch(e){ /* ignore */ }
+    try{ showToast(`${product.name} a été ajouté au panier.`); }catch(e){ /* ignore */ }
   }
   function update(id, qty){
     const cart = read();
@@ -30,13 +48,22 @@ const Cart = (function(){
     const cart = read().filter(i=>i.id!==id); write(cart); renderCartCount();
   }
   function clear(){ localStorage.removeItem(KEY); renderCartCount(); }
-  function subtotal(){ return read().reduce((s,i)=>s + i.price*i.qty, 0); }
-  function shipping(){ return subtotal() > 100 ? 0 : 2; }
+  function subtotal(){
+    return read().reduce((sum, item) => {
+      const price = Number(item.price) || 0;
+      const quantity = Number(item.qty) || 0;
+      return sum + price * quantity;
+    }, 0);
+  }
+  function shipping(){
+    const amount = subtotal();
+    return amount === 0 || amount > 100 ? 0 : 2;
+  }
   function total(){ return subtotal() + shipping(); }
   function all(){ return read(); }
   function renderCartCount(){
     const el = document.getElementById('cart-count'); if(!el) return;
-    const qty = read().reduce((s,i)=>s+i.qty,0);
+    const qty = read().reduce((sum, item)=>sum + (Number(item.qty) || 0), 0);
     el.textContent = qty;
   }
   return { add, update, remove, clear, subtotal, shipping, total, all, renderCartCount };
@@ -136,8 +163,7 @@ function sendCartToPayment(){
   const shipping = Cart.shipping();
   const total = Cart.total();
 
-  const paymentUrl = `https://pay.fondeka.com/p/BYSKWPHY8?subtotal=${encodeURIComponent(subtotal.toFixed(2))}&shipping=${encodeURIComponent(shipping.toFixed(2))}&total=${encodeURIComponent(total.toFixed(2))}`;
-  window.open(paymentUrl, '_blank');
+  window.location.href = 'https://pay.fondeka.com/p/BYSKWPHY8';
 }
 
 function sendCartToWhatsApp(){

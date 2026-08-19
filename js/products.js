@@ -12,9 +12,7 @@ function formatPrice(v){
 function openDirectBuy(product){
   if (!product) return;
   Cart.add(product, 1);
-  const msg = `Bonjour, je souhaite commander ${product.name} (${formatPrice(product.price)}).`;
-  const url = `https://wa.me/243977000858?text=${encodeURIComponent(msg)}`;
-  window.open(url, '_blank');
+  window.location.href = 'panier.html';
 }
 
 function renderProductsList(targetSelector, products){
@@ -41,7 +39,7 @@ function renderProductsList(targetSelector, products){
   document.querySelectorAll('.add-to-cart').forEach(btn=>{
     btn.addEventListener('click', ()=>{
       const id = btn.dataset.id; const prod = window.PRODUCTS.find(x=>x.id===id);
-      if(prod) Cart.add(prod,1);
+      if(prod){ Cart.add(prod,1); window.location.href = 'panier.html'; }
     });
   });
 
@@ -90,6 +88,6 @@ function renderProductDetail(){
       const main = document.getElementById('product-main-img'); if(main) main.src = img.dataset.src || img.src;
     });
   });
-  document.getElementById('btn-add').addEventListener('click', ()=>{ Cart.add(p,1); });
+  document.getElementById('btn-add').addEventListener('click', ()=>{ Cart.add(p,1); window.location.href = 'panier.html'; });
   document.getElementById('btn-buy').addEventListener('click', ()=>{ openDirectBuy(p); });
 }
